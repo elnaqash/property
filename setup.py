@@ -13,13 +13,13 @@ with open('requirements.txt') as f:
 
 
 # get version from __version__ variable in property/__init__.py
-from property import __version__ as version
+#from property import __version__ as version
+_version_re = re.compile(r'__version__\s+=\s+(.*)')
 
-
-##with open('property/__init__.py', 'rb') as f:
-##    version = str(ast.literal_eval(_version_re.search(
-##        f.read().decode('utf-8')).group(1)))
-
+with open('property/__init__.py', 'rb') as f:
+	version = str(ast.literal_eval(_version_re.search(
+		f.read().decode('utf-8')).group(1)))
+	
 ##requirements = parse_requirements("requirements.txt", session="")
 
 setup(
@@ -31,6 +31,7 @@ setup(
 	packages=find_packages(),
 	zip_safe=False,
 	include_package_data=True,
-	install_requires=[str(ir.req) for ir in requirements],
-	dependency_links=[str(ir._link) for ir in requirements if ir._link]
+	##install_requires=[str(ir.req) for ir in requirements],
+	##dependency_links=[str(ir._link) for ir in requirements if ir._link]
+	install_requires=install_requires
 )
